@@ -1,0 +1,120 @@
+---
+title: "Univariate Graphing Assignment"
+author: "Pushpak Sunil Rane"
+from: markdown+emoji
+format:
+  pdf:
+    highlight-style: a11y
+    theme: 
+      light: flatly
+      dark: darkly
+    highlight: pygments
+execute: 
+  warning: false
+  messages: false
+---
+
+# Describing Distribution
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+Load necessary libraries needed.
+
+```{r}
+# Load libraries
+library(sjPlot); library(ggplot2); library(ggpubr); library(here);library(gtsummary)
+
+# Import data
+load(here("data/environmental_impact_clean.Rdata"))
+```
+
+## Environmental_impacts_freshwater_use
+
+"environmental_impacts_freshwater_use" variable represents environmental impact of using freshwater (use in km3) on diet and nutrition in certain regions.
+
+```{r}
+summary(region$environmental_impacts_freshwater_use)
+```
+
+```{r}
+IQR(region$environmental_impacts_freshwater_use)
+sd(region$environmental_impacts_freshwater_use)
+```
+
+Histogram for variable "environmental_impacts_freshwater_use" in km3 units.
+
+```{r}
+# this function is from the ggpubr package
+gghistogram(data=region, x = "environmental_impacts_freshwater_use", add = "mean", 
+            fill = "skyblue", add_density = TRUE, 
+            xlab = "Freshwater use (in km3)",
+            title = "Environmental Impact of Freshwater Use (in km3)")
+```
+
+The histogram titled “Environmental Impact of Freshwater Use (in km³)” depicts the distribution of impact of freshwater use on diet and nutrition in various regions with 351 observations and . The data seems to be right-skewed, indicating more frequent lower values with a long tail of higher values. The mean of environmental impact of freshwater use is around 30.6096 km³, with the median of 2.3623 km³. The interquartile range (IQR) is 10.71601 which spans from 0.4669 km3 to 11.1830 km³, showing where the middle 50% of the data lies that is middle of data from variable. The range of the data is huge with a standard deviation of 133.1164 km³. There seem some outliers that are values outside this range or due to data entry errors.
+
+## Environmental_impacts_land_use
+
+"environmental_impacts_land_use" variable represents environmental impact of land (use in Mkm2) on diet and nutrition in certain regions.
+
+```{r}
+summary(region$environmental_impacts_land_use)
+```
+
+```{r}
+IQR(region$environmental_impacts_land_use, na.rm = TRUE)
+sd(region$environmental_impacts_land_use, na.rm = TRUE)
+```
+
+Histogram for variable "environmental_impacts_land_use" in Mkm2
+
+```{r}
+# this function is from the ggpubr package 
+gghistogram(data=region, x = "environmental_impacts_land_use", 
+            add = "mean", 
+            fill = "green", add_density = TRUE,              
+            xlab = "Land use (in Mkm2)", 
+            title = "Environmental Impact of Land Use (in Mkm2)")
+```
+
+The histogram titled “Environmental Impact of Land Use (in Mkm2)” illustrates how impact of land use on diet and nutrition is distributed in million square kilometers (Mkm²). The data appears to be right-skewed, suggesting that lower values are more common, with a long tail extending towards higher values. The average land use is approximately 1035.65 Mkm², while the median is slightly lower at 57.97 Mkm². The interquartile range (IQR) is 400.3397 which spans from 10.12 Mkm² to 410.46 Mkm², indicating where the middle 50% of the data falls. The overall range of the data is quite large with a standard deviation of 4220.845 Mkm². There are some outliers present, which could be values that fall outside this range or may result from data entry mistakes.
+
+## Region
+
+"region" variable represents regions or places for analyzing impact of it by environmental factors on diet and nutrition.
+
+```{r}
+table(region$region,useNA = "always")
+```
+
+```{r}
+prop.table(table(region$region))
+```
+
+```{r}
+plot_frq(region$region) + labs(title = "Histogram for Regions", x = "Region", 
+                               y = "Frequency") +
+  theme(axis.text.x = element_text(angle = 75, vjust = 1, hjust = 1)) 
+```
+
+The histogram titled “Histogram for Regions” illustrates how often different regions appear in the dataset. It reveals that almost all regions have same frequency count than Polynesia that has 1 count only. The data for region “Asia” is standing out as the leading region. Every region make 7% of data (i.e. number of observations (N=13)) besides Polynesia which makes 0.3% of data (i.e. number of observations (N=1))
+
+## Disagg_value
+
+*"[disagg_value]{.underline}*" variable represents diet items(fruits,vegetables,beef,etc) in particular region.
+
+```{r}
+table(region$disagg_value,useNA = "always")
+```
+
+```{r}
+prop.table(table(region$disagg_value))
+```
+
+```{r}
+plot_frq(region$disagg_value) + labs(title = "Histogram for Disagg_value", x = "Disagg_value", y = "Frequency")
+```
+
+The plot illustrates how often different disagg_value (i.e. diet) appear in the dataset. It reveals that almost all disagg_value have same frequency count than total which contains all other disagg_values that are there in that region having 27 which is higher than other. The data for region “total” is standing out as the leading value. Every value makes 7.7% of data (i.e. number of observations (N=26)) besides total which makes 8.0% of data (i.e. number of observations (N=27)).

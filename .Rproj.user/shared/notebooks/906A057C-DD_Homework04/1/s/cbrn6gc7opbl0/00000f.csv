@@ -1,0 +1,7 @@
+"0","# Load libraries"
+"0","library(sjPlot); library(ggplot2);library(ggpubr)"
+"0",""
+"0","# Import data"
+"0","load(here::here(""data"", ""Data/diet_nutrition.Rdata"")) # your import line will look something like this"
+"2","Error in readChar(con, 5L, useBytes = TRUE) : cannot open the connection
+"

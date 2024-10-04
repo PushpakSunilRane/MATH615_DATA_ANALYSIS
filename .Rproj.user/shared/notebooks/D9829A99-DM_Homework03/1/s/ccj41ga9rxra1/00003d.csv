@@ -1,0 +1,2 @@
+"0","mydata  <-  merge_data %>%  filter(region != """") %>% drop_na(planetary_impacts_Cropland,planetary_impacts_Freshwater,disagg.value.y)"
+"0","head(mydata)"

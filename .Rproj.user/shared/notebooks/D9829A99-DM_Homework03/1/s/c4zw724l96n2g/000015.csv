@@ -1,0 +1,11 @@
+"0","#import ggplot2 to create histogram for categorical variable helps to use without converting from char to numeric."
+"0","library(ggplot2)"
+"0","# Create histogram"
+"0","ggplot(mydata, aes(x = region)) +"
+"0","  geom_histogram(stat = ""count"",fill = ""#4cd4e2f5"", color = ""black"") +"
+"0","  labs(title = ""Histogram for Region"", x = ""Region"", y = ""Frequency"") +  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))"
+"2","Warning in geom_histogram(stat = ""count"", fill = ""#4cd4e2f5"", color = ""black"") :"
+"2","
+ "
+"2"," [38;5;232mIgnoring unknown parameters: `binwidth`, `bins`, and `pad`[39m
+"

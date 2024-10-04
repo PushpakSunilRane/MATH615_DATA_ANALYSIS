@@ -1,0 +1,24 @@
+---
+title: "DM Diet and Nutrition"
+format: html
+editor: visual
+---
+
+```         
+```
+
+```{r}
+install.packages("openintro")
+ncbirths <- openintro::ncbirths
+```
+
+```{r}
+table(ncbirths$gender, ncbirths$lowbirthweight)
+prop.table(table(ncbirths$gender, ncbirths$lowbirthweight), margin = 1)
+
+```
+
+```{r}
+cor(ncbirths$fage,ncbirths$mage,
+    use="pairwise.complete.obs")
+```

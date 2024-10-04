@@ -1,0 +1,2 @@
+"0","#import dataset using read.csv"
+"0","raw_data <- read.csv(here::here(""Data/environmental_impact.csv""))"
