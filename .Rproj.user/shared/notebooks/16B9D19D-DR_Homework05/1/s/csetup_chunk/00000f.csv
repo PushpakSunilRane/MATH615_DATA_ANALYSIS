@@ -1,0 +1,7 @@
+"0","knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)"
+"0"," "
+"0","# Load libraries"
+"0","library(sjPlot); library(ggplot2); library(ggpubr); library(here);library(gtsummary); library(dplyr)"
+"0",""
+"0","# Import data"
+"0","load(here(""Data/Data_clean.Rdata""))"

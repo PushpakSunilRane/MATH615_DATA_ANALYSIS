@@ -1,0 +1,8 @@
+"0","# Load libraries"
+"0","library(sjPlot); library(ggplot2);library(ggpubr)"
+"2","RStudio Community is a great place to get help: https://community.rstudio.com/c/tidyverse
+"
+"0","# Import data"
+"0","load(here:here(""clean"", ""Data/diet_nutrition.Rdata""))"
+"2","Error: object 'here' not found
+"

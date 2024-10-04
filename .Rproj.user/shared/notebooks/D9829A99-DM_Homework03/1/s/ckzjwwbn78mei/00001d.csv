@@ -1,0 +1,6 @@
+"0","library(ggplot2)"
+"0","ggplot(mydata, aes(x = region)) +"
+"0","  geom_histogram(stat = ""count"",fill = ""#4cd4e2f5"", color = ""black"") +"
+"0","  labs(title = ""Histogram for Region"", x = ""Region"", y = ""Frequency"") +  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))"
+"2","Error: object 'mydata' not found
+"

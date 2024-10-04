@@ -1,0 +1,3 @@
+"0","ggscatter(mydata, "
+"0","  x=""planetary_impacts_Cropland"", y = ""planetary_impacts_Freshwater"", "
+"0","  add = ""loess"", conf.int = TRUE)"

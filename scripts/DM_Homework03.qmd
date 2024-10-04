@@ -1,0 +1,150 @@
+---
+title: "Data Management for Diet & Nutrition dataset."
+author: "Pushpak Sunil Rane"
+format: pdf
+editor: visual
+execute: 
+  warning: false
+  messages: false
+---
+
+# Data Management
+
+```{r}
+library(tidyverse)
+library(tidyr)
+library(dplyr)
+```
+
+```{r}
+raw_data <- read.csv(here::here("Data/country_environment.csv"))
+raw_data1 <- read.csv(here::here("Data/country_adolescent.csv"))
+raw_data2 <- read.csv(here::here("Data/country_diet.csv"))
+merge_data <- merge(raw_data,raw_data1,raw_data2, 
+              by.x = c("country","region"),
+              by.y = c("country","region"),
+              by.z = c("country","region"),all = TRUE)
+```
+
+```{r}
+mydata  <-  merge_data %>%  filter(region != "") %>% drop_na(planetary_impacts_Cropland,planetary_impacts_Freshwater,disagg.value.y)
+head(mydata)
+```
+
+# Categorical Variable 01
+
+### "country" variable represents regions or places for analyzing diet and impact of it by environmental factors.
+
+```{r}
+str(mydata$region)
+```
+
+### Does this match with the intended data type?
+
+### Yes, it matches the intended data type.
+
+```{r}
+table(mydata$region,useNA = "always")
+```
+
+### There are 0 entries that do not match the expected categories of country.
+
+```{r}
+summary(mydata$region)
+```
+
+```{r}
+library(ggplot2)
+ggplot(mydata, aes(x = region)) +
+  geom_histogram(stat = "count",fill = "#4cd4e2f5", color = "black") +
+  labs(title = "Histogram for Region", x = "Region", y = "Frequency") +  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust = 1))
+```
+
+# Categorical Variable 02
+
+### "[*disagg.value*]{.underline}" variable represents diet items(fruits,vegetables,beef,etc) in particular country.
+
+```{r}
+class(mydata$disagg.value.x)
+```
+
+### Does this match with the intended data type?
+
+### Yes, it matches the intended data type.
+
+```{r}
+table(mydata$disagg.value.x,useNA="always")
+```
+
+### There are 0 entries that do not match the expected categories of country.
+
+```{r}
+summary(mydata$disagg.value.x)
+```
+
+```{r}
+# Create histogram for variable disagg_value using ggplot library
+ggplot(mydata, aes(x = disagg.value.x)) +
+  geom_histogram(stat = "count", fill = "lightyellow", color = "black") +
+  labs(title = "Histogram for Disagg_value", x = "Disagg.value.x", y = "Frequency") + theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+# Quantitative Variable 01
+
+### "environmental_impacts_freshwater_use" variable represents environmental impact of using freshwater on diet and nutrition in certain country.
+
+```{r}
+class(mydata$planetary_impacts_Cropland)
+```
+
+### Does this match with the intended data type?
+
+### Yes, it matches the intended data type.
+
+```{r}
+mydata$impact_cropland <- ifelse(mydata$planetary_impacts_Cropland > 21,
+"less_impact_Cropland", "more_impact_Cropland")
+table(mydata$impact_cropland, useNA="always")
+```
+
+### There are 4 entries that do not match the expected quantity. Mostly, either they are out of range or error values in the dataset. Otherwise, entries beside that 4 all are in range.
+
+```{r}
+summary(mydata$planetary_impacts_Cropland)
+```
+
+```{r}
+hist(mydata$planetary_impacts_Cropland)
+```
+
+# Quantitative Variable 02
+
+### "environmental_impacts_land_use" variable represents environmental impact of land on diet and nutrition in certain regions.
+
+```{r}
+class(mydata$planetary_impacts_Freshwater)
+```
+
+### Does this match with the intended data type?
+
+### Yes, it matches the intended data type.
+
+```{r}
+mydata$impact_freshwater <- ifelse(mydata$planetary_impacts_Freshwater > 30,
+"less_impact_freshwater", "more_impact_freshwater")
+table(mydata$impact_freshwater, useNA="always")
+```
+
+```{r}
+summary(mydata$planetary_impacts_Freshwater)
+```
+
+### There are 16 entries that do not match the expected quantity. Mostly, either they are out of range or error values in the dataset. Otherwise, entries beside that 16 all are in range.
+
+```{r}
+hist(mydata$planetary_impacts_Freshwater)
+```
+
+```{r}
+save(mydata, file=here::here("data/Data_clean.Rdata"))
+```

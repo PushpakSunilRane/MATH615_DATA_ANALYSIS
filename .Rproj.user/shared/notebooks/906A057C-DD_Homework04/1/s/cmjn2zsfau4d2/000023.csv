@@ -1,0 +1,5 @@
+"0","# this function is from the ggpubr package"
+"0","gghistogram(data=region, x = ""environmental_impacts_freshwater_use"", add = ""mean"", "
+"0","            fill = ""skyblue"", add_density = TRUE, "
+"0","            xlab = ""Freshwater use (in km3)"","
+"0","            title = ""Environmental Impact of Freshwater Use (in km3)"")"

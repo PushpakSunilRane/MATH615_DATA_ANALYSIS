@@ -1,0 +1,6 @@
+"0","# this function is from the ggpubr package "
+"0","gghistogram(data=region, x = ""environmental_impacts_land_use"", "
+"0","            add = ""mean"", "
+"0","            fill = ""green"", add_density = TRUE,              "
+"0","            xlab = ""Land use (in Mkm2)"", "
+"0","            title = ""Environmental Impact of Land Use (in Mkm2)"")"

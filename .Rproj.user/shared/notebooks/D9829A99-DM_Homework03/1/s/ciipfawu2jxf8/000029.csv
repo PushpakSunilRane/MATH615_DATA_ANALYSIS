@@ -1,0 +1,6 @@
+"0","# Select only the variables that I am interested in"
+"0","mydata  <- raw_data %>% select(region,disagg_value,environmental_impacts_freshwater_use"
+"0",",environmental_impacts_land_use) %>% "
+"0","  filter(region != """")"
+"0",""
+"0","head(mydata)"

@@ -1,0 +1,4 @@
+"0","#exporting clean dataset of variables that you're interested."
+"0","clean <- mydata %>% select(region,disagg_value,environmental_impacts_freshwater_use"
+"0",",environmental_impacts_land_use,impact_freshwater,impact_landuse)"
+"0","save(clean, file=here::here(""data/diet_nutrition.Rdata""))"

@@ -1,0 +1,7 @@
+"0","raw_data <- read.csv(here::here(""Data/country_environment.csv""))"
+"0","raw_data1 <- read.csv(here::here(""Data/country_adolescent.csv""))"
+"0","raw_data2 <- read.csv(here::here(""Data/country_diet.csv""))"
+"0","merge_data <- merge(raw_data,raw_data1,raw_data2, "
+"0","              by.x = c(""country"",""region""),"
+"0","              by.y = c(""country"",""region""),"
+"0","              by.z = c(""country"",""region""),all = TRUE)"

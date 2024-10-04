@@ -1,0 +1,6 @@
+"0","cor(mydata$environmental_impacts_land_use,mydata$environmental_impacts_freshwater_use, "
+"0","    use=""pairwise.complete.obs"")"
+"1","[1]"
+"1"," 0.3882479"
+"1","
+"

@@ -1,0 +1,6 @@
+"0","cor(mydata$planetary_impacts_Cropland,mydata$planetary_impacts_Freshwater, "
+"0","    use=""pairwise.complete.obs"")"
+"1","[1]"
+"1"," 0.5549602"
+"1","
+"

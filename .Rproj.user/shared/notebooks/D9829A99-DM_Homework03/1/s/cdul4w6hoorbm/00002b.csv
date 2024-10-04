@@ -1,0 +1,6 @@
+"0","world <- mydata %>% filter(region == ""World"")"
+"0","continents <- mydata %>% filter(region %in% c(""Africa"", ""Asia"", ""Europe"", ""Oceania"", ""North America"", ""South America""))"
+"0","countries <- mydata %>% filter(region %in% c(""Australia and New Zealand"", ""Caribbean"", ""Central America"", ""Central Asia"", "
+"0","""Eastern Africa"", ""Eastern Asia"", ""Eastern Europe"", ""Latin America and the Caribbean"", ""Melanesia"", ""Middle Africa"", ""Northern Africa"", ""Northern America"", ""Northern Europe"", ""Polynesia"", ""South-eastern Asia"", ""Southern Africa"", ""Southern Asia"", ""Southern Europe"", ""Western Africa"", ""Western Asia"", ""Western Europe""))"
+"0","region <- mydata %>% filter(.by = region)"
+"0","save(list = c(""world"",""continents"",""countries"",""region""), file=here::here(""data/environmental_impact_clean.Rdata""))"

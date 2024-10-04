@@ -1,0 +1,117 @@
+---
+title: "Bivariate Graphing Assignment"
+author: "Pushpak Sunil Rane"
+from: markdown+emoji
+format:
+  pdf:
+    highlight-style: a11y
+    theme: 
+      light: flatly
+      dark: darkly
+    highlight: pygments
+---
+
+# Describing Relationship
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+ 
+# Load libraries
+library(sjPlot); library(ggplot2); library(ggpubr); library(here);library(gtsummary); library(dplyr)
+
+# Import data
+load(here("Data/Data_clean.Rdata"))
+```
+
+# C \~ C Association
+
+> **country \~ disagg.value.x**
+>
+> "[country]{.underline}" variable represents regions or places for analyzing diet and impact of it by environmental factors.
+>
+> "[*disagg.value.x*]{.underline}" variable represents diet items(fruits,vegetables,beef,etc) in particular country.
+
+```{r}
+mydata %>% select(region, disagg.value.x) %>%
+  tbl_summary(by = "disagg.value.x", 
+              statistic = list(all_continuous() ~ "{mean} ({sd})"))
+```
+
+```{r}
+plot_xtab(mydata$region, grp = mydata$disagg.value.x, show.total = FALSE) + 
+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+> The bar chart you provided illustrates the relationship between the variable “region” and the categories within “disagg.value.x”. Each bar represents a country, and the different colored segments within each bar represent the proportions of various categories in “disagg.value.x” (e.g., beef_lamb, eggs, fruit_veg, etc.). Approximately 25% - 26% of Africa has higher impact on diet of each item in "disagg.value.x". Whereas, 1.2% of North America has lowest impact.
+
+# Q \~ C Association
+
+> **planetary_impacts_Cropland \~ disagg.value.x**
+>
+> "[planetary_impacts_Cropland]{.underline}" variable represents environmental impact of using freshwater (use in %) on diet and nutrition in certain regions.
+>
+> "[*disagg.value.x*]{.underline}" variable represents diet items(fruits,vegetables,beef,etc) grams/day in particular country.
+
+```{r}
+mydata %>% select(planetary_impacts_Cropland, disagg.value.x) %>%
+  tbl_summary(by = "disagg.value.x", 
+  statistic = list(all_continuous() ~ "{mean} ({sd})"))
+```
+
+```{r}
+ggviolin(mydata, 
+  x="disagg.value.x", y = "planetary_impacts_Cropland", 
+  color = "disagg.value.x", add = c("mean", "boxplot")) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+> The distribution of planetary_impacts_Cropland are fairly normal for each disagg.value.x, with some higher average values of nuts_seeds, grains and pork_poultry (7gm/day,35gm/day,28gm/day) causes high impact on cropland as compared to other items of diet. Eggs and fish (6gm/day and 1gm/day) have less average values that impact on cropland. Each violin represents the density of data points for a specific category of “disagg.value.x.” The width of the violin at different y-values indicates the density of data points at that level of cropland impact. The mean is indicated by a white dot within each violin.
+
+# Q \~ Q Association
+
+> **environmental_impacts_freshwater_use \~ environmental_impacts_land_use**
+>
+> "[planetary_impacts_Cropland]{.underline}" variable represents environmental impact of using freshwater (use in %) on diet and nutrition in certain regions.
+>
+> "[planetary_impacts_Freshwater]{.underline}" variable represents environmental impact of land (use in %) on diet and nutrition in certain regions.
+
+```{r}
+cor(mydata$planetary_impacts_Cropland,mydata$planetary_impacts_Freshwater, 
+    use="pairwise.complete.obs")
+```
+
+```{r}
+ggscatter(mydata, 
+  x="planetary_impacts_Cropland", y = "planetary_impacts_Freshwater", 
+  add = "loess", conf.int = TRUE)
+```
+
+> The scatter plot you provided shows the relationship between “planetary_impacts_Cropland” (on the horizontal axis in %) and “planetary_impacts_Freshwater” (on the vertical axis in %) where "planetary_impacts_Cropland" has a strong, positive and totally linear correlation with "planetary_impact_Freshwater", r = 0.55. This suggests that as the impact on cropland increases, the impact on freshwater also tends to increase.
+
+# B \~ Q Association
+
+> **disagg.value.x \~ planetary_impacts_Freshwater**
+>
+> "[*disagg.value.x*]{.underline}" variable represents diet items(fruits,vegetables,beef,etc) grams/day in particular country.
+>
+> "[planetary_impacts_Freshwater]{.underline}" variable represents environmental impact of using freshwater (use in %) on diet and nutrition in certain countries.
+
+```{r}
+mydata$disagg.value.y <- as.factor(mydata$disagg.value.y)
+mydata %>%
+group_by(disagg.value.y) %>%
+summarize(
+N = n(),
+Mean = mean(planetary_impacts_Freshwater, na.rm = TRUE),
+Median = median(planetary_impacts_Freshwater, na.rm = TRUE),
+SD = sd(planetary_impacts_Freshwater, na.rm = TRUE),
+IQR = IQR(planetary_impacts_Freshwater, na.rm = TRUE)
+)
+```
+
+```{r}
+ggviolin(mydata, 
+  x="disagg.value.y", y = "planetary_impacts_Freshwater", 
+  color = "disagg.value.y", add = c("mean", "boxplot"))
+```
+
+> The violin plot you provided compares the distribution of the variable “planetary_impacts_Freshwater” across two groups, “Boys” and “Girls,” represented by the variable “disagg.value.y”. The width of each violin at different y-values indicates the density of data points. Wider sections represent higher density, showing where most data points lie. Both the values have same statisitics having equal number of frequency(1978), mean(10), median(3.47), standard deviation(14.56) and IQR(11.43) also same for both values in "disagg.values.y".
